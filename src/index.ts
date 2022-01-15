@@ -1,7 +1,8 @@
 import { createServer } from 'http';
 import { app } from './app';
+import { config } from 'dotenv-safe'
 
-require('dotenv').config();
+config()
 
 const port = process.env.PORT || 3000;
 
