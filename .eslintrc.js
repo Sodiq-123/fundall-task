@@ -23,6 +23,9 @@ module.exports = {
     'prettier/prettier': 'error',
     'import/extensions': 'off',
     'no-console': 'off',
+    'import/no-unresolved': 'off',
+    'max-classes-per-file': 'off',
+    'no-param-reassign': 'off',
     'import/order': [
       'error',
       {
