@@ -16,7 +16,6 @@ export default class CardController {
     }
   }
 
-  // request a function requestCard that updates the card counts everytime a user requests a card and returns the updated card.
   public static async requestCard(req: BaseReq, res: Response) {
     try {
       const card = await CardService.requestCard(
@@ -53,6 +52,27 @@ export default class CardController {
       return handleSuccess(200, 'cards found', cards, req, res);
     } catch (e) {
       return handleFailure(404, e.message, undefined, req, res);
+    }
+  }
+
+  public static async getBalanceByCardId(req: BaseReq, res: Response) {
+    try {
+      const balance = await CardService.getBalanceByCardId(+req.params.cardId);
+      return handleSuccess(200, 'balance found', balance, req, res);
+    } catch (e) {
+      return handleFailure(404, e.message, undefined, req, res);
+    }
+  }
+
+  public static async fundCard(req: BaseReq, res: Response) {
+    try {
+      const fund = await CardService.fundCard(
+        +req.params.cardId,
+        +req.body.amount
+      );
+      return handleSuccess(200, 'card successfully funded', fund, req, res);
+    } catch (e) {
+      return handleFailure(400, e.message, undefined, req, res);
     }
   }
 }

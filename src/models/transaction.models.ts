@@ -1,14 +1,15 @@
 import {
   AutoIncrement,
-  BelongsTo,
   Column,
   CreatedAt,
   DataType,
+  DeletedAt,
   ForeignKey,
   Model,
   PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import Cards from './cards.models';
 import Users from './users.models';
 
 @Table({ tableName: 'transactions' })
@@ -16,30 +17,41 @@ class Transactions extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id!: number;
+  public id!: number;
 
   @Column(DataType.INTEGER)
-  counts!: number;
+  public counts!: number;
+
+  @Column(DataType.UUID)
+  public reference!: string;
 
   @Column(DataType.STRING)
-  category!: string;
+  public category!: string;
+
+  @Column(DataType.INTEGER)
+  public amount!: number;
 
   @Column(DataType.STRING)
-  merchant!: string;
+  public merchant!: string;
 
   @Column(DataType.ENUM('debit', 'credit'))
-  transactionType!: string;
-
-  @BelongsTo(() => Users)
-  users!: Users;
+  public transactionType!: string;
 
   @ForeignKey(() => Users)
   @Column(DataType.INTEGER)
-  userId!: number;
+  public userId!: number;
+
+  @ForeignKey(() => Cards)
+  @Column(DataType.INTEGER)
+  public cardId: number;
 
   @CreatedAt
   @Column(DataType.DATE)
-  createdAt!: Date;
+  public createdAt!: Date;
+
+  @DeletedAt
+  @Column(DataType.DATE)
+  public deletedAt!: Date;
 }
 
 export default Transactions;

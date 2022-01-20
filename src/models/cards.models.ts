@@ -10,7 +10,9 @@ import {
   PrimaryKey,
   Table,
   UpdatedAt,
+  HasMany,
 } from 'sequelize-typescript';
+import Transactions from './transaction.models';
 import Users from './users.models';
 
 @Table({ tableName: 'cards' })
@@ -18,32 +20,35 @@ class Cards extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id!: number;
+  public id!: number;
 
   @Column(DataType.STRING)
-  name: string;
+  public name: string;
 
   @Column(DataType.INTEGER)
-  counts!: number;
+  public counts!: number;
 
-  @BelongsTo(() => Users)
-  users!: Users;
+  @Column(DataType.INTEGER)
+  public balance!: number;
+
+  @HasMany(() => Transactions)
+  public transactions!: Transactions;
 
   @ForeignKey(() => Users)
   @Column(DataType.INTEGER)
-  userId!: number;
+  public userId!: number;
 
   @CreatedAt
   @Column(DataType.DATE)
-  createdAt!: Date;
+  public createdAt!: Date;
 
   @UpdatedAt
   @Column(DataType.DATE)
-  updatedAt!: Date;
+  public updatedAt!: Date;
 
   @DeletedAt
   @Column(DataType.DATE)
-  deletedAt!: Date;
+  public deletedAt!: Date;
 }
 
 export default Cards;

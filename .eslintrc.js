@@ -26,6 +26,7 @@ module.exports = {
     'import/no-unresolved': 'off',
     'max-classes-per-file': 'off',
     'no-param-reassign': 'off',
+    'import/no-import-module-exports': 'off',
     'import/order': [
       'error',
       {

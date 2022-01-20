@@ -13,16 +13,19 @@ export default class CardService {
         name: 'Lifestyle Pro',
         counts: 0,
         userId,
+        balance: 0,
       },
       {
         name: 'Lifestyle Premium',
         counts: 0,
         userId,
+        balance: 0,
       },
       {
         name: 'Lifestyle Business',
         counts: 0,
         userId,
+        balance: 0,
       },
     ];
     const createdCards = await Cards.bulkCreate(cards);
@@ -54,12 +57,29 @@ export default class CardService {
     return card;
   }
 
-  // find all cards a user has requested for. i.e the counts of the card is 1
   public static async getAllCards(userId: number) {
     const cards = await Cards.findAll({ where: { userId, counts: 1 } });
     if (!cards) {
       throw new BadRequestException('no cards requested yet');
     }
     return cards;
+  }
+
+  public static async getBalanceByCardId(cardId: number) {
+    const card = await Cards.findOne({ where: { id: cardId } });
+    if (!card) {
+      throw new BadRequestException('card not found');
+    }
+    return card.balance;
+  }
+
+  public static async fundCard(cardId: number, amount: number) {
+    const card = await Cards.findOne({ where: { id: cardId } });
+    if (card.counts !== 1) {
+      throw new BadRequestException('You have not requested for this card');
+    }
+    card.balance += amount;
+    await card.save();
+    return card;
   }
 }

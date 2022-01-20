@@ -2,7 +2,7 @@ import { config } from 'dotenv-safe';
 import { Sequelize } from 'sequelize-typescript';
 import User from './models/users.models';
 import Cards from './models/cards.models';
-import Transactions from './models/transaction.model';
+import Transactions from './models/transaction.models';
 
 config();
 

@@ -13,43 +13,47 @@ import {
   UpdatedAt,
 } from 'sequelize-typescript';
 import Cards from './cards.models';
+import Transactions from './transaction.models';
 
 @Table({ tableName: 'users' })
 class Users extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column(DataType.INTEGER)
-  id!: number;
+  public id!: number;
 
   @Unique
   @Column(DataType.STRING)
-  email!: string;
+  public email!: string;
 
   @Column(DataType.STRING)
-  firstname!: string;
+  public firstname!: string;
 
   @Column(DataType.STRING)
-  lastname!: string;
+  public lastname!: string;
 
   @Column(DataType.STRING)
-  phonenumber!: string;
+  public phonenumber!: string;
 
   @Column(DataType.STRING)
-  password!: string;
+  public password!: string;
 
   @Column(DataType.STRING)
-  merchant!: string;
+  public merchant!: string;
 
   @HasMany(() => Cards)
-  cards: Cards[];
+  public cards: Cards[];
+
+  @HasMany(() => Transactions)
+  public transactions: Transactions;
 
   @CreatedAt
   @Column(DataType.DATE)
-  createdAt!: Date;
+  public createdAt!: Date;
 
   @UpdatedAt
   @Column(DataType.DATE)
-  updatedAt!: Date;
+  public updatedAt!: Date;
 
   @BeforeCreate
   static encryptPassword(user: Users) {
